@@ -35,9 +35,11 @@ print(anomaly_percentages)
 print(paste("Overall anomaly percentage:", overall_anomaly_percentage))
 
 # Use as.POSIXlt to extract week information
-
+data$Date <- as.POSIXlt(data$Date, format = "%d/%m/%Y")
 
 # Filter data for the 21st week
+group_number <- 21
+start_date <- as.Date("2007-1-1") + (group_number - 1) * 7
+end_date <- start_date + 7
 
-
-# Extract data from Monday to Sunday
+data %>% filter(between(Date, as.Date(start_date), as.Date(end_date)))
