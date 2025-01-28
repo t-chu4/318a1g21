@@ -5,7 +5,7 @@ library(dplyr)
 library(corrplot)
 library(ggplot2) # Missed the tutorial for this, whoops
 
-# Execution Instructions: Simply run "./Question2.r" in bash.
+# Execution Instructions: Simply run "Rscript Question2.r" in bash.
 
 # Basic table read
 data <- read.csv("Group_Assignment_Dataset.txt",
