@@ -2,7 +2,7 @@ library(ggplot2)
 library(dplyr)
 
 # Need to change the file location
-setwd("E:/Spring 2025/CMPT 318")
+#setwd("E:/Spring 2025/CMPT 318")
 df <- read.table("Group_Assignment_Dataset.txt", header = TRUE, sep = ",")
 
 df$Date <- as.Date(df$Date, format = "%d/%m/%Y")
