@@ -40,5 +40,15 @@ filtered_data <- na.omit(filtered_data)
 # Matrix calculated with command taken directly from assignment info
 matrix <- cor(filtered_data[data_vars], method = "pearson")
 
-# Assume math is correct as calculation shown in class. Display appropriate...?
+# Visualize matrix
+png("matrix.png", width = 500, height = 500)
+
+corrplot(matrix,
+         method = "color",
+         type = "upper", 
+         tl.col = "black",
+         tl.srt = 45, 
+         col = colorRampPalette(c("blue", "white", "red"))(200))
+
 print(matrix)
+
