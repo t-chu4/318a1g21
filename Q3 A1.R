@@ -67,17 +67,17 @@ avg_night_weekend_after_end <- night_weekend_after_end %>%
   summarize(Average_Global_intensity = mean(Global_intensity, na.rm = TRUE))
 
 
-# Convert Time to numeric (seconds since midnight)
+# Convert Time to numeric (minutes since midnight)
 convert_time_to_minutes <- function(time) {
   (as.numeric(as.POSIXct(time, format="%H:%M:%S")) - as.numeric(as.POSIXct("00:00:00", format="%H:%M:%S"))) / 60
 }
 
-avg_day_weekday$Time_Seconds <- convert_time_to_seconds(avg_day_weekday$Time)
-avg_night_weekday_before_start$Time_Seconds <- convert_time_to_seconds(avg_night_weekday_before_start$Time)
-avg_night_weekday_after_end$Time_Seconds <- convert_time_to_seconds(avg_night_weekday_after_end$Time)
-avg_day_weekend$Time_Seconds <- convert_time_to_seconds(avg_day_weekend$Time)
-avg_night_weekend_before_start$Time_Seconds <- convert_time_to_seconds(avg_night_weekend_before_start$Time)
-avg_night_weekend_after_end$Time_Seconds <- convert_time_to_seconds(avg_night_weekend_after_end$Time)
+avg_day_weekday$Time_Minutes <- convert_time_to_minutes(avg_day_weekday$Time)
+avg_night_weekday_before_start$Time_Minutes <- convert_time_to_minutes(avg_night_weekday_before_start$Time)
+avg_night_weekday_after_end$Time_Minutes <- convert_time_to_minutes(avg_night_weekday_after_end$Time)
+avg_day_weekend$Time_Minutes <- convert_time_to_minutes(avg_day_weekend$Time)
+avg_night_weekend_before_start$Time_Minutes <- convert_time_to_minutes(avg_night_weekend_before_start$Time)
+avg_night_weekend_after_end$Time_Minutes <- convert_time_to_minutes(avg_night_weekend_after_end$Time)
 
 
 avg_day_weekday$Category <- "Day - Weekdays"
@@ -92,14 +92,14 @@ avg_night_weekend_after_end$Category <- "Night - After - Weekends"
 combined_data <- bind_rows(avg_day_weekday, avg_night_weekday_before_start, avg_night_weekday_after_end, avg_day_weekend, avg_night_weekend_before_start, avg_night_weekend_after_end)
 
 #Plot Linear Regression
-p1 <- ggplot(combined_data, aes(x = Time_Seconds, y = Average_Global_intensity, color = Category)) +
+p1 <- ggplot(combined_data, aes(x = Time_Minutes, y = Average_Global_intensity, color = Category)) +
   geom_smooth(method = "lm", se = FALSE, linewidth = 1) +
   labs(title = "Linear Regression of Global Intensity",
-       x = "Time (Minuntes since Midnight)",
+       x = "Time (Minutes since Midnight)",
        y = "Average Global Intensity")
 
 #Plot Polynomial Regression
-p2 <- ggplot(combined_data, aes(x = Time_Seconds, y = Average_Global_intensity, color = Category)) +
+p2 <- ggplot(combined_data, aes(x = Time_Minutes, y = Average_Global_intensity, color = Category)) +
   geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE, linewidth = 1) +  
   labs(title = "Polynomial Regression (Degree 2) of Global Intensity",
        x = "Time (Minutes since Midnight)",
